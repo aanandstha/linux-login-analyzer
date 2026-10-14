@@ -45,7 +45,8 @@ for ip, count in attempts.items():
         severity = "MEDIUM"
     else:
         severity = "LOW"
-    lines.append(f"[{severity}] {ip} - {count} failures, {burst} within {WINDOW_SECONDS}s, users: {sorted(users[ip])}")
+    score = count + 3 * len(users[ip]) + (10 if burst >= BURST_THRESHOLD else 0)
+    lines.append(f"[{severity}] {ip} - score {score}, {count} failures, {burst} within {WINDOW_SECONDS}s, users: {sorted(users[ip])}")
 
 report = "\n".join(lines)
 print(report)
