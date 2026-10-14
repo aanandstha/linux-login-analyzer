@@ -1,4 +1,5 @@
 import re
+import csv
 from datetime import datetime
 from collections import defaultdict
 
@@ -36,7 +37,7 @@ with open("data/sample_auth.log") as f:
             users[ip].add(username)
             times[ip].append(when)
 
-lines = ["=== Failed Login Report ==="]
+rows = []
 for ip, count in attempts.items():
     burst = max_burst(times[ip], WINDOW_SECONDS)
     if count >= FAIL_THRESHOLD or len(users[ip]) >= USER_THRESHOLD or burst >= BURST_THRESHOLD:
@@ -46,10 +47,20 @@ for ip, count in attempts.items():
     else:
         severity = "LOW"
     score = count + 3 * len(users[ip]) + (10 if burst >= BURST_THRESHOLD else 0)
-    lines.append(f"[{severity}] {ip} - score {score}, {count} failures, {burst} within {WINDOW_SECONDS}s, users: {sorted(users[ip])}")
+    rows.append([ip, severity, score, count, burst, ";".join(sorted(users[ip]))])
 
+rows.sort(key=lambda r: r[2], reverse=True)
+
+lines = ["=== Failed Login Report ==="]
+for ip, severity, score, count, burst, names in rows:
+    lines.append(f"[{severity}] {ip} - score {score}, {count} failures, {burst} within {WINDOW_SECONDS}s, users: {names}")
 report = "\n".join(lines)
 print(report)
 
 with open("reports/report.txt", "w") as out:
     out.write(report + "\n")
+
+with open("reports/report.csv", "w", newline="") as out:
+    writer = csv.writer(out)
+    writer.writerow(["ip", "severity", "score", "failures", "burst_60s", "usernames"])
+    writer.writerows(rows)

@@ -1,6 +1,6 @@
 === Failed Login Report ===
-[HIGH] 192.168.1.50 - score 24, 5 failures, 5 within 60s, users: ['admin', 'root', 'test']
-[MEDIUM] 203.0.113.77 - score 8, 2 failures, 2 within 60s, users: ['oracle', 'ubuntu']
-[LOW] 192.168.1.10 - score 4, 1 failures, 1 within 60s, users: ['aanand']
-[LOW] 198.51.100.9 - score 4, 1 failures, 1 within 60s, users: ['root']
-[MEDIUM] 10.0.0.99 - score 7, 4 failures, 1 within 60s, users: ['root']
+[HIGH] 192.168.1.50 - score 24, 5 failures, 5 within 60s, users: admin;root;test
+[MEDIUM] 203.0.113.77 - score 8, 2 failures, 2 within 60s, users: oracle;ubuntu
+[MEDIUM] 10.0.0.99 - score 7, 4 failures, 1 within 60s, users: root
+[LOW] 192.168.1.10 - score 4, 1 failures, 1 within 60s, users: aanand
+[LOW] 198.51.100.9 - score 4, 1 failures, 1 within 60s, users: root

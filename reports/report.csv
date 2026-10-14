@@ -1,0 +1,6 @@
+ip,severity,score,failures,burst_60s,usernames
+192.168.1.50,HIGH,24,5,5,admin;root;test
+203.0.113.77,MEDIUM,8,2,2,oracle;ubuntu
+10.0.0.99,MEDIUM,7,4,1,root
+192.168.1.10,LOW,4,1,1,aanand
+198.51.100.9,LOW,4,1,1,root
