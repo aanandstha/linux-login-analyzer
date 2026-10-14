@@ -66,3 +66,7 @@ data/sample_auth.log contains 15 SSH log lines I created to simulate: one brute-
 - Read a real auth.log and handle the year automatically
 - Add command-line options for the file path and thresholds
 - Detect a successful login that follows many failures from the same IP
+
+## Screenshot
+
+![Analyzer output](screenshots/report-output.png)
