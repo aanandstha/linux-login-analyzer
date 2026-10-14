@@ -1,0 +1,5 @@
+=== Failed Login Report ===
+[HIGH] 192.168.1.50 - 5 failures, users: ['admin', 'root', 'test']
+[MEDIUM] 203.0.113.77 - 2 failures, users: ['oracle', 'ubuntu']
+[LOW] 192.168.1.10 - 1 failures, users: ['aanand']
+[LOW] 198.51.100.9 - 1 failures, users: ['root']

@@ -18,7 +18,7 @@ with open("data/sample_auth.log") as f:
             attempts[ip] += 1
             users[ip].add(username)
 
-print("=== Failed Login Report ===")
+lines = ["=== Failed Login Report ==="]
 for ip, count in attempts.items():
     if count >= FAIL_THRESHOLD or len(users[ip]) >= USER_THRESHOLD:
         severity = "HIGH"
@@ -26,4 +26,10 @@ for ip, count in attempts.items():
         severity = "MEDIUM"
     else:
         severity = "LOW"
-    print(f"[{severity}] {ip} - {count} failures, users: {sorted(users[ip])}")
+    lines.append(f"[{severity}] {ip} - {count} failures, users: {sorted(users[ip])}")
+
+report = "\n".join(lines)
+print(report)
+
+with open("reports/report.txt", "w") as out:
+    out.write(report + "\n")
