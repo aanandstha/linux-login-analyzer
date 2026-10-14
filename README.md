@@ -26,3 +26,43 @@ Practice the core SOC skill of turning raw log data into an investigation: extra
 ## Run it
 
 Run: python3 src/analyzer.py
+
+
+## Sample data
+
+data/sample_auth.log contains 15 SSH log lines I created to simulate: one brute-force burst, a username-guessing scan, a slow trickle of failures, normal user typos, and successful logins.
+
+## Detection logic
+
+- HIGH: 5 or more failures, OR 3 or more different usernames, OR 5 or more failures inside 60 seconds
+- MEDIUM: 2 or more failures
+- LOW: anything else
+- Risk score = 1 point per failure + 3 points per distinct username + 10 points for a burst
+
+## Output
+
+- reports/report.txt: human-readable report, highest risk first
+- reports/report.csv: the same data for Excel or other tools
+
+## Findings
+
+- 192.168.1.50 (score 24, HIGH): 5 failures in 12 seconds against root, admin and test. This is a brute-force pattern.
+- 203.0.113.77 (score 8, MEDIUM): tried the nonexistent usernames oracle and ubuntu, which suggests scanning for common accounts.
+- 10.0.0.99 (score 7, MEDIUM): 4 failures spread over 4 hours. Slow and low, so not a burst.
+- 192.168.1.10 and 198.51.100.9 (score 4, LOW): single failures, likely typos.
+
+## What I learned
+
+- How SSH authentication lines in auth.log are structured
+- Extracting fields with regular expressions
+- Counting and grouping with dictionaries and sets
+- A sliding time window to separate bursts from slow activity
+- Debugging: a missing IP in the report led me to a log line that had been merged by mistake
+- Git workflow: change, commit, push
+
+## Future improvements
+
+- Check IPs against a reputation service
+- Read a real auth.log and handle the year automatically
+- Add command-line options for the file path and thresholds
+- Detect a successful login that follows many failures from the same IP
