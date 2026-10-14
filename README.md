@@ -70,3 +70,7 @@ data/sample_auth.log contains 15 SSH log lines I created to simulate: one brute-
 ## Screenshot
 
 ![Analyzer output](screenshots/report-output.png)
+
+## How this was built
+
+I built this project while learning Python and Linux, working step by step with Claude (an AI assistant) as a tutor. Claude wrote the initial code, and I ran it, tested it, debugged it (including finding a merged log line that dropped an IP from the report), and wrote up the findings. Next I'm extending it with features I write myself.
